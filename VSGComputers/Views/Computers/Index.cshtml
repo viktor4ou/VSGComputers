@@ -1,0 +1,33 @@
+﻿@model List<Computer>
+
+<partial name="_Notifications"/>
+<div class="container-xll  mx-md-2 mx-lg-5 my-3">
+    <div class="row justify-content-center text-center mx-0">
+        @foreach (Computer computer in @Model)
+        {
+            <div class="col-12 col-sm-7 col-md-5 col-lg-4 col-xl-3 col-xxl-2 pb-sm-3 px-0 " id="product">
+                <div class="card " style="width: auto;height: 570px;">
+                    <div class="card-body">
+                        <h5 class="card-title">6 months</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item">@computer.MotherBoard</li>
+                        <li class="list-group-item">@computer.VideoCard</li>
+                        <li class="list-group-item">@computer.Processor</li>
+                        <li class="list-group-item">@computer.Memory</li>
+                        <li class="list-group-item">@computer.Storage</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="btn btn-success">Buy</a>
+                        <a class="btn btn-danger" asp-controller="Computers" asp-action="DeleteCurrent" asp-route-id="@computer.Id"><i class="bi bi-trash-fill">Delete</i></a>
+                        <a class="btn btn-warning" asp-controller="Computers" asp-action="Edit" asp-route-id="@computer.Id"><i class="bi bi-pencil-square">Edit</i></a>
+                    </div>
+                </div>
+            </div>
+        }
+        <a class="btn btn-success" asp-controller="Computers" asp-action="Create">Add Computer</a>
+        <a class="btn btn-danger" asp-controller="Computers" asp-action="Delete">Delete Computer</a>
+    </div>
+
+</div>
