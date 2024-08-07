@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VSGComputers.Data;
+using VSGComputers.DataAccess.Repository;
+using VSGComputers.DataAccess.Repository.Interfaces;
 
 namespace VSGComputers
 {
@@ -16,6 +18,8 @@ namespace VSGComputers
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 )
             );
+
+            builder.Services.AddScoped<IComputerRepository, ComputerRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

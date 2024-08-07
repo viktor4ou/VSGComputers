@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VSGComputers.Data;
+using VSGComputers.DataAccess.Repository.Interfaces;
 using VSGComputers.Models;
 
 namespace VSGComputers.Controllers
 {
     public class ComputersController : Controller
     {
-        private ComputersDbContext db;
-        public ComputersController(ComputersDbContext db)
+        private readonly IComputerRepository computerRepository;    
+        public ComputersController(IComputerRepository computerRepository)
         {
-            this.db = db;
+            this.computerRepository = computerRepository;
         }
         public IActionResult Index()
         {
-            List<Computer> computers = db.Computers.ToList();
+            List<Computer> computers = computerRepository.GetAll().ToList();
             return View(computers);
         }
 
@@ -27,8 +28,8 @@ namespace VSGComputers.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Computers.Add(computer);
-                db.SaveChanges();
+                computerRepository.Add(computer);
+                computerRepository.Save();
                 TempData["success"] = "Successfully created";
                 return RedirectToAction("Index");
             }
@@ -44,25 +45,25 @@ namespace VSGComputers.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Computer searchedComputer = db.Computers.ToList().Find(i => i.Id == id);
-            db.Computers.Remove(searchedComputer);
-            db.SaveChanges();
+            Computer searchedComputer = computerRepository.GetBy(i => i.Id == id);
+            computerRepository.Remove(searchedComputer);
+            computerRepository.Save();
             TempData["success"] = "Successfully deleted";
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteCurrent(int id)
         {
-            Computer searchedComputer = db.Computers.ToList().Find(i => i.Id == id);
-            db.Computers.Remove(searchedComputer);
-            db.SaveChanges();
+            Computer searchedComputer = computerRepository.GetBy(i => i.Id == id);
+            computerRepository.Remove(searchedComputer);
+            computerRepository.Save();
             TempData["success"] = "Successfully deleted";
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var result = db.Computers.Find(id);
+            var result = computerRepository.GetBy(i => i.Id == id);
             if (result is null)
             {
                 return NotFound();
@@ -79,8 +80,8 @@ namespace VSGComputers.Controllers
                 return NotFound();
             }
 
-            db.Computers.Update(computer);
-            db.SaveChanges();
+            computerRepository.Update(computer);
+            computerRepository.Save();
             TempData["success"] = "Successfully updated";
             return RedirectToAction("Index");
         }
