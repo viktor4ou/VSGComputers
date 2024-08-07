@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VSGComputers.DataAccess\VSGComputers.DataAccess.csproj" />
+    <ProjectReference Include="..\VSGComputers.Models\VSGComputers.Models.csproj" />
     <ProjectReference Include="..\VSGComputers\VSGComputers.csproj" />
   </ItemGroup>
 
