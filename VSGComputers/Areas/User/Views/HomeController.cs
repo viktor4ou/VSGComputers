@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using VSGComputers.Models;
 
-namespace VSGComputers.Controllers
+namespace VSGComputers.Areas.User.Views
 {
     public class HomeController : Controller
     {

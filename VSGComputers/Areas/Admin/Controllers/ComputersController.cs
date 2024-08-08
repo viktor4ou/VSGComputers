@@ -4,11 +4,12 @@ using VSGComputers.Data;
 using VSGComputers.DataAccess.Repository.Interfaces;
 using VSGComputers.Models;
 
-namespace VSGComputers.Controllers
+namespace VSGComputers.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ComputersController : Controller
     {
-        private readonly IComputerRepository computerRepository;    
+        private readonly IComputerRepository computerRepository;
         public ComputersController(IComputerRepository computerRepository)
         {
             this.computerRepository = computerRepository;
@@ -68,7 +69,7 @@ namespace VSGComputers.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(result);
         }
 
