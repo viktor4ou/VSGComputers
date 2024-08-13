@@ -7,9 +7,9 @@ namespace VSGComputers.Models
     {
         public Computer()
         {
-
+            
         }
-        public Computer(int id, string processor, string videoCard, int memory, int storage, string motherBoard, string @case)
+        public Computer(int id, string processor, string videoCard, int memory, int storage, string motherBoard, string @case,string imageUrl)
         {
             Id = id;
             Processor = processor;
@@ -18,6 +18,7 @@ namespace VSGComputers.Models
             Storage = storage;
             MotherBoard = motherBoard;
             Case = @case;
+            ImageURL = imageUrl;
         }
 
         [Key]
@@ -48,5 +49,7 @@ namespace VSGComputers.Models
         [Required]
         [Length(1, 20, ErrorMessage = "Length should be in the range between 1 and 20")]
         public string Case { get; set; }
+            
+        public string ImageURL { get; set; }
     }
 }
