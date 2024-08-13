@@ -10,9 +10,11 @@ namespace VSGComputers.Areas.Admin.Controllers
     public class ComputersController : Controller
     {
         private readonly IComputerRepository computerRepository;
-        public ComputersController(IComputerRepository computerRepository)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public ComputersController(IComputerRepository computerRepository, IWebHostEnvironment webHostEnvironment)
         {
             this.computerRepository = computerRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -25,10 +27,23 @@ namespace VSGComputers.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Computer computer)
+        public IActionResult Create(Computer computer, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"img\Computers");
+
+                    using (FileStream s = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                    {
+                        file.CopyTo(s);
+                    }
+
+                    computer.ImageURL = @"\img\Computers\" + filename;
+                }
                 computerRepository.Add(computer);
                 computerRepository.Save();
                 TempData["success"] = "Successfully created";

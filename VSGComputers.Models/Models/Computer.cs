@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace VSGComputers.Models
 {
@@ -49,7 +50,7 @@ namespace VSGComputers.Models
         [Required]
         [Length(1, 20, ErrorMessage = "Length should be in the range between 1 and 20")]
         public string Case { get; set; }
-            
+        [ValidateNever]
         public string ImageURL { get; set; }
     }
 }
