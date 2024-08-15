@@ -37,6 +37,7 @@ namespace VSGComputers.Areas.Admin.Controllers
                     string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"img\Computers");
 
+                    
                     using (FileStream s = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
                     {
                         file.CopyTo(s);
@@ -89,13 +90,31 @@ namespace VSGComputers.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Computer computer)
+        public IActionResult Edit(Computer computer, IFormFile ? file)
         {
+
             if (computer is null)
             {
                 return NotFound();
             }
 
+            string wwwRootPath = webHostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                string productPath = Path.Combine(wwwRootPath, @"img\Computers");
+                string oldImagePath = Path.Combine(wwwRootPath, computer.ImageURL.TrimStart('\\'));
+
+                if (System.IO.File.Exists(oldImagePath))    
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+                using (FileStream s = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                {
+                    file.CopyTo(s);
+                }
+                computer.ImageURL = @"\img\Computers\" + filename;
+            }
             computerRepository.Update(computer);
             computerRepository.Save();
             TempData["success"] = "Successfully updated";

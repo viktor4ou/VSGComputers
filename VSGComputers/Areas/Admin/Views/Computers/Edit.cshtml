@@ -1,7 +1,8 @@
 ﻿@model Computer
 
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ImageURL" />
     <div class="container-xl bg-dark">
         <div class="border p-3 mt-4">
             <div class="row pb-2">
@@ -9,33 +10,37 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Processor"></label>
-                <input asp-for="Processor" type="text" class="form-control" />
+                <input asp-for="Processor" type="text" class="form-control"/>
                 <span asp-validation-for="Processor" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="MotherBoard"></label>
-                <input asp-for="MotherBoard" type="text" class="form-control" />
+                <input asp-for="MotherBoard" type="text" class="form-control"/>
                 <span asp-validation-for="MotherBoard" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="VideoCard"></label>
-                <input asp-for="VideoCard" type="text" class="form-control" />
+                <input asp-for="VideoCard" type="text" class="form-control"/>
                 <span asp-validation-for="VideoCard" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Memory"></label>
-                <input asp-for="Memory" type="text" class="form-control" />
+                <input asp-for="Memory" type="text" class="form-control"/>
                 <span asp-validation-for="Memory" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Storage"></label>
-                <input asp-for="Storage" type="text" class="form-control" />
+                <input asp-for="Storage" type="text" class="form-control"/>
                 <span asp-validation-for="Storage" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Case"></label>
-                <input asp-for="Case" type="text" class="form-control" />
+                <input asp-for="Case" type="text" class="form-control"/>
                 <span asp-validation-for="Case" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageURL"></label>
+                <input type="file" name="file" value="@Model.ImageURL" class="form-control"/>
             </div>
             <div asp-validation-summary="All" class="text-danger"></div>
             <button type="submit" class="btn btn-success">Create</button>
