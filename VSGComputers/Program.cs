@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using VSGComputers.Data;
 using VSGComputers.DataAccess.Repository;
 using VSGComputers.DataAccess.Repository.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace VSGComputers
 {
@@ -19,6 +20,8 @@ namespace VSGComputers
                 )
             );
 
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ComputersDbContext>();
+
             builder.Services.AddScoped<IComputerRepository, ComputerRepository>();
             var app = builder.Build();
 
@@ -34,7 +37,7 @@ namespace VSGComputers
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
