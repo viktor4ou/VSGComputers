@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VSGComputers.Models;
+using VSGComputers.Models.Models;
 
 namespace VSGComputers.Data
 {
@@ -12,7 +13,7 @@ namespace VSGComputers.Data
 
         }
         public DbSet<Computer> Computers { get; set; }
-
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

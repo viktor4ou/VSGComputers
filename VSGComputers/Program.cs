@@ -21,7 +21,6 @@ namespace VSGComputers
             );
             builder.Services.AddRazorPages();
             builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ComputersDbContext>();
-
             builder.Services.AddScoped<IComputerRepository, ComputerRepository>();
             var app = builder.Build();
 
