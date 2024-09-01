@@ -19,7 +19,7 @@ namespace VSGComputers
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 )
             );
-
+            builder.Services.AddRazorPages();
             builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ComputersDbContext>();
 
             builder.Services.AddScoped<IComputerRepository, ComputerRepository>();
@@ -39,7 +39,7 @@ namespace VSGComputers
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}"// add views reminder 
