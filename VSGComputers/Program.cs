@@ -3,6 +3,8 @@ using VSGComputers.Data;
 using VSGComputers.DataAccess.Repository;
 using VSGComputers.DataAccess.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using VSGComputers.Utility;
 
 namespace VSGComputers
 {
@@ -18,10 +20,11 @@ namespace VSGComputers
                 options => options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 )
-            );
-            builder.Services.AddRazorPages();
-            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ComputersDbContext>();
+            ); 
+            builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ComputersDbContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<IComputerRepository, ComputerRepository>();
+            builder.Services.AddScoped<IEmailSender,EmailSender>();
+            builder.Services.AddRazorPages();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

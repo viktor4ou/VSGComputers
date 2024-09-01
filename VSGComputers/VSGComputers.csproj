@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VSGComputers.DataAccess\VSGComputers.DataAccess.csproj" />
     <ProjectReference Include="..\VSGComputers.Models\VSGComputers.Models.csproj" />
+    <ProjectReference Include="..\VSGComputers.Utility\VSGComputers.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
